@@ -141,6 +141,7 @@ func DetectAndLoad(isGitHubAction bool, customPaths ...string) (*Profile, error)
 		WorkDir:        workDir,
 		IsoDir:         isoDir,
 		LiveRoot:       filepath.Join(workDir, "liveroot"),
+		LiveLabel:      ResolveLiveLabel(),
 	}
 
 	tmpl := template.New(filepath.Base(basePath))

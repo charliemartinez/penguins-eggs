@@ -73,6 +73,7 @@ remaster:
         - "{{ .IsoDir }}"
         - '{{ template "distro_boot_params" . }}'
         - '{{ if .RamModeEnabled }}1{{ else }}0{{ end }}'
+        - '{{ .LiveLabel }}'
 
 # ----------------------------------------------------------------------------
 # 5.1 EFI IMAGE FINALIZATION
@@ -364,6 +365,7 @@ remaster:
       source_dir: "INJECTED_BY_PLANNER"
       isolinux_bin: "isolinux/isolinux.bin"
       isolinux_cat: "isolinux/boot.cat"
+      volid: "{{ .LiveLabel }}"
       efi_img: "EFI/BOOT/efi.img"
       isohdpfx: "/tmp/coa/bootloaders/ISOLINUX/isohdpfx.bin"
 

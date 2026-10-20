@@ -7,6 +7,9 @@ PRETTY_NAME=$(grep ^PRETTY_NAME= /etc/os-release | cut -d= -f2 | tr -d '"')
 BOOT_PARAMS="$2"
 BOOT_COMMON="audit=0 splash quiet loglevel=3 systemd.show_status=auto udev.log_priority=3"
 RAM_MODE_ENABLED="${3:-1}"
+# Volume label de la ISO (4o argumento). Debe coincidir con el -volid de xorriso:
+# GRUB lo usa para localizar el medio en el arranque UEFI/BIOS.
+LIVE_LABEL="${4:-OA_LIVE}"
 
 # live-config no hereda el idioma del filesystem squasheado: si no recibe
 # el parametro de arranque 'locales=', usa siempre 'en_US.UTF-8' por defecto,
@@ -68,7 +71,7 @@ if [ -f "$BRANDING_DIR/grub.main.cfg" ] && [ -f "$BRANDING_DIR/isolinux.main.cfg
     render_branding_template "$BRANDING_DIR/isolinux.main.cfg" "$ISODIR/isolinux/isolinux.cfg"
 
     cat <<EOF > "$ISODIR/EFI/BOOT/grub.cfg"
-search --set=root --label OA_LIVE
+search --set=root --label $LIVE_LABEL
 set prefix=(\$root)/boot/grub
 configfile \$prefix/grub.cfg
 EOF
@@ -141,7 +144,7 @@ insmod part_msdos
 insmod fat
 insmod iso9660
 
-search --no-floppy --set=root --label OA_LIVE
+search --no-floppy --set=root --label $LIVE_LABEL
 
 if loadfont /boot/grub/font.pf2; then
     set gfxmode=auto
@@ -192,7 +195,7 @@ EOF
 
 # 3. Trampolino EFI (Attenzione agli escape \$ per preservare le variabili per GRUB)
 cat <<EOF > "$ISODIR/EFI/BOOT/grub.cfg"
-search --set=root --label OA_LIVE
+search --set=root --label $LIVE_LABEL
 set prefix=(\$root)/boot/grub
 configfile \$prefix/grub.cfg
 EOF

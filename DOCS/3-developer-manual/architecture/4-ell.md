@@ -54,7 +54,7 @@ Builds the `mksquashfs` invocation natively via `os/exec`: algorithm and level f
 
 ### `xorriso` — the final bake
 
-Assembles the hybrid BIOS+UEFI ISO (`xorriso -as mkisofs`): El Torito boot with ISOLINUX, alternate EFI boot from `efi.img`, isohybrid MBR. Environment variables in `output_file`/`source_dir` are expanded, with safe fallbacks if unresolved.
+Assembles the hybrid BIOS+UEFI ISO (`xorriso -as mkisofs`): El Torito boot with ISOLINUX, alternate EFI boot from `efi.img`, isohybrid MBR. Environment variables in `output_file`/`source_dir` are expanded, with safe fallbacks if unresolved. The ISO volume label comes from `params.volid` (injected by the Brain as `{{ .LiveLabel }}`, i.e. the wardrobe branding name such as `Quirinux`, or `OA_LIVE` when none is installed).
 
 ---
 

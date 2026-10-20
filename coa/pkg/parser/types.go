@@ -64,6 +64,10 @@ type TemplateContext struct {
 	WorkDir        string
 	IsoDir         string
 	LiveRoot       string
+
+	// LiveLabel e' il volume label ISO9660 della live (es. "Quirinux").
+	// Deriva dal branding del wardrobe; se assente vale "OA_LIVE".
+	LiveLabel string
 }
 
 type BrainIndex struct {

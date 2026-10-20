@@ -213,10 +213,13 @@ func inspectGenericIso(isoPath string) (kernel, initrd, params string, useLoopba
 	}
 
 	if kernel != "" {
+		// La label real de la ISO (p. ej. "Quirinux" o "OA_LIVE"); no se asume ninguna.
+		// Los espacios deben ir escapados en el cmdline (udev/dracut esperan \x20).
+		isoLabel := strings.ReplaceAll(readISOVolumeLabel(isoPath), " ", `\x20`)
 		if strings.Contains(params, "archisobasedir") {
-			params = "archisobasedir=arch archisolabel=OA_LIVE img_dev=$imgdevpath img_loop=$isofile cow_spacesize=2G"
+			params = "archisobasedir=arch archisolabel=" + isoLabel + " img_dev=$imgdevpath img_loop=$isofile cow_spacesize=2G"
 		} else if strings.Contains(params, "rd.live.image") || strings.Contains(params, "root=live:") {
-			params = "root=live:CDLABEL=OA_LIVE rd.live.image iso-scan.iso=$isofile rootwait"
+			params = "root=live:CDLABEL=" + isoLabel + " rd.live.image iso-scan.iso=$isofile rootwait"
 		} else if strings.Contains(params, "alpine_dev") || strings.Contains(configText, "alpine") {
 			params = "alpine_dev=loop img_loop=$isofile modules=loop,squashfs,sd-mod,usb-storage quiet"
 		} else if strings.Contains(params, "boot=casper") {

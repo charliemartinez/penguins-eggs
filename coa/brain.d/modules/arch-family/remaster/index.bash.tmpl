@@ -8,11 +8,11 @@
 # ----------------------------------------------------------------------------
 {{ define "distro_boot_params" }}
 {{- if or (eq .DistroID "garuda") (eq .DistroID "endeavouros") -}}
-root=live:CDLABEL=OA_LIVE rd.live.image rd.live.dir=arch/x86_64 rd.live.squashimg=airootfs.sfs rd.live.overlay.size=2048 quiet
+root=live:CDLABEL={{ .LiveLabel }} rd.live.image rd.live.dir=arch/x86_64 rd.live.squashimg=airootfs.sfs rd.live.overlay.size=2048 quiet
 {{- else if eq .Family "manjaro" -}}
-misobasedir=manjaro misolabel=OA_LIVE cow_spacesize=2G
+misobasedir=manjaro misolabel={{ .LiveLabel }} cow_spacesize=2G
 {{- else -}}
-archisobasedir=arch archisolabel=OA_LIVE cow_spacesize=2G
+archisobasedir=arch archisolabel={{ .LiveLabel }} cow_spacesize=2G
 {{- end -}}
 {{ end }}
 

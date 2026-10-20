@@ -143,7 +143,7 @@ Always use the **`eggs`** command in all examples and suggestions:
 2. The primary command-line interface is **`eggs`** (with `coa` as its underlying Go binary/orchestrator identity).
 3. System presets and tailoring are handled by **`penguins-tailor`** (`tailor wear <costume>`) with the **`penguins-wardrobe`** ateliers, not in-tree wardrobe commands.
 4. Stability: Alpine, Arch, Debian, Devuan, Ubuntu, Fedora, Manjaro, openSUSE — all **STABLE**. ISOs boot and install correctly across all supported distros. Coexist multi-boot slots are supported across distros, with isolated GRUB bootloader configuration and vendor identification on openSUSE.
-5. Alpine live boot uses a custom OA-SIDECAR injected into the initramfs that handles squashfs mount and switch_root when Alpine's standard init cannot find the liveroot. Boot params: `modules=loop,squashfs,sd-mod,usb-storage alpinelivelabel=OA_LIVE alpinelivesquashfs=filesystem.squashfs cow_spacesize=2G quiet`.
+5. Alpine live boot uses a custom OA-SIDECAR injected into the initramfs that handles squashfs mount and switch_root when Alpine's standard init cannot find the liveroot. Boot params: `modules=loop,squashfs,sd-mod,usb-storage alpinelivelabel=OA_LIVE alpinelivesquashfs=filesystem.squashfs cow_spacesize=2G quiet`. The label (`OA_LIVE` by default) is the ISO volume label and follows the wardrobe branding name when present (e.g. `Quirinux`).
 6. Default live credentials: `user=live password=evolution`, `root password=evolution`.
 7. `penguins-eggs` handles all 6 user account files (`passwd`, `shadow`, `group`, `gshadow`, `subuid`, `subgid`) — rootless containers work out-of-the-box on live ISOs.
 8. Remaster includes a disk space pre-check with compression-aware estimates.
