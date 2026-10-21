@@ -5,9 +5,9 @@ See AI context: https://penguins-eggs.net/llms.txt
 ## Unreleased
 
 ### 🏷️ Live ISO volume label follows the wardrobe distribution name
-* The ISO volume label (`xorriso -volid`) is no longer always `OA_LIVE`: it is read from the active wardrobe branding (`productName`), e.g. `Quirinux`, and falls back to `OA_LIVE` when none is installed.
+* The ISO volume label (`xorriso -volid`) is no longer always `OA_LIVE`: it is read from the active wardrobe branding (`productName`), e.g. `QUIRINUX`, and falls back to `OA_LIVE` when none is installed.
 * The label is exposed to `brain.d` templates as `{{ .LiveLabel }}` and used by xorriso, the GRUB/EFI `search --label` lines (`generate-menus.sh`, new 4th argument) and the label-based boot parameters of Alpine, Arch family, Fedora and openSUSE.
-* The name is sanitized to `[A-Za-z0-9._-]` and truncated to 32 characters (ISO9660 limit).
+* The name is sanitized to ISO9660-conformant characters (`[A-Z0-9_]`: lowercase is uppercased, anything else becomes `_`) and truncated to 32 characters.
 * `eggs tools grub40` now reads the real volume label from the ISO.
 
 ## Release Notes: penguins-eggs v26.9.29 - 2026-09-29
